@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room Details - myproject</title>
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-links">
+        <a href="{% url 'sign_up' %}">Get Started</a>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'login' %}">Tenant</a>
+        <a href="{% url 'login' %}">Caretaker</a>
+    </div>
+    </nav>
+
+    <main>
+      <section class="card">
+        <h1 class="h1">Available Rooms</h1>
+      </section>
+
+<section class="details-container">
+
+    {% for room in rooms %}
+    <h2>Room {{ room.number }}</h2>
+
+    <div class="card">
+        <p><strong>Number:</strong> {{ room.room_number }}</p>
+        <p><strong>Type:</strong> {{ room.type }}</p>
+        <p><strong>Rent:</strong> KES {{ room.rent }}</p>
+        <p><strong>Status:</strong> {{ room.status }}</p>
+    </div>
+    {% endfor %}
+
+    <div class="contact-box">
+        <h3>Interested?</h3>
+        <p>Call the caretaker to book a viewing:</p>
+        <p><strong>{{ caretaker.phone }}</strong></p>
+        <p>Or visit Grace Apartments in person to secure this room.</p>
+    </div>
+
+</section>
+
+</body>
+</html>

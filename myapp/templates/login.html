@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Hostel HUB</title>
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+<body>
+
+<nav>
+    <h2>Hostel HUB Login</h2>
+    <div class="nav-links">
+        <a href="{% url 'index' %}">Home</a>
+    </div>
+</nav>
+
+<div class="form-container">
+    <h2>Login</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter username">
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password">
+
+        <button class="btn" type="submit">Login</button>
+    </form>
+
+</div>
+
+</body>
+</html>

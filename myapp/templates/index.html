@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hostel Hub</title>
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>WELCOME TO HOSTEL HUB</h1>
+    <nav class="nav">
+      <div class="nav-links">
+        <a href="{% url 'sign_up' %}">Get Started</a>
+        <a href="{% url 'rooms_list' %}">Available Rooms</a>
+        <a href="{% url 'login' %}">Tenant</a>
+        <a href="{% url 'login' %}">Caretaker</a>
+      </div>
+    </nav>
+
+    <section class="hero card">
+      <div class="meta">
+        <div style="flex:1">
+          <h1 class="h1">{{ hostel.name }}</h1>
+          <p class="muted">{{ hostel.description }}</p>
+          <div style="margin-top:10px">
+            <a class="btn" href="{% url 'rooms_list' %}">View Vacant Rooms</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid cols-2">
+      <section class="card">
+        <h2 class="h2">About this hostel</h2>
+        <p class="muted">{{ hostel.about }}</p>
+        <ul class="muted">
+          <li>Rooms: {{ hostel.room_types }}</li>
+          <li>Payments: {{ hostel.payment_info }}</li>
+          <li>Maintenance: {{ hostel.maintenance_info }}</li>
+        </ul>
+      </section>
+
+      <div class="card">
+        <h3 class="h2">Contact</h3>
+        <p class="muted">Caretaker: {{ caretaker.name }} • {{ caretaker.phone }}</p>
+        <div class="notice" style="margin-top:10px">
+          <div style="font-weight:700">Visiting?</div>
+          <div class="muted">Come see the rooms in person or view them in the "available rooms" page</div>
+        </div>
+    </div>
+    </div>
+
+    <footer class="footer">
+        Managing hostels the smart way.
+    </footer>
+  </div>
+</body>
+</html>

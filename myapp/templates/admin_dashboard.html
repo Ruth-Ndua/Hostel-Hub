@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+<body>
+
+<nav>
+    <h2>Admin Dashboard</h2>
+    <div>
+        <a href="{% url 'admin_rooms' %}">Rooms</a>
+        <a href="{% url 'admin_tenants' %}">Tenants</a>
+        <a href="{% url 'admin_maintenance' %}">Maintenance</a>
+        <a href="{% url 'admin_announcements' %}">Announcements</a>
+        <a href="{% url 'index' %}">Logout</a>
+    </div>
+</nav>
+
+<section class="dashboard">
+    <h3>Hostel Overview</h3>
+
+    <div class="card">
+        <p><strong>Total Rooms:</strong> {{ total_rooms }}</p>
+        <p><strong>Vacant Rooms:</strong> {{ vacant }}</p>
+        <p><strong>Occupied Rooms:</strong> {{ occupied }}</p>
+        <p><strong>Tenants:</strong> {{ tenants.count }}</p>
+        <p><strong>Maintenance Issues:</strong> {{ maintenance_pending }}</p>
+    </div>
+</section>
+
+</body>
+</html>

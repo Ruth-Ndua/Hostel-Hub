@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Announcements</title>
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+<body>
+
+<nav>
+    <h2>Manage Announcements</h2>
+    <div>
+        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        <a href="{% url 'admin_rooms' %}">Rooms</a>
+        <a href="{% url 'admin_tenants' %}">Tenants</a>
+        <a href="{% url 'admin_maintenance' %}">Maintenance</a>
+    </div>
+</nav>
+
+<section class="dashboard">
+
+    <h3>Announcements</h3>
+
+    {% for a in announcements %}
+    <div class="card">
+        <p><strong>{{ a.title }}</strong></p>
+        <p>{{ a.message }}</p>
+    </div>
+    {% empty %}
+    <p>No announcements yet.</p>
+    {% endfor %}
+
+    <h3>Create Announcement</h3>
+    <form method="post">
+        {% csrf_token %}
+        <label>Title</label>
+        <input type="text" name="title">
+
+        <label>Message</label>
+        <textarea name="message"></textarea>
+
+        <button class="btn" type="submit">Post</button>
+    </form>
+
+</section>
+
+</body>
+</html>

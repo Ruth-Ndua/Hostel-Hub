@@ -1,0 +1,160 @@
+/* Warm Brown Minimalist Theme */
+
+/* Global */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f1ed url('hostel.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #4b3a2f; /* dark brown text */
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* Add overlay to improve text readability */
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: -1;
+}
+
+a {
+    text-decoration: none;
+    color: #4b3a2f;
+}
+
+/* Navigation */
+nav, .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: #d6c1af; /* light brown */
+    border-bottom: 1px solid #c0a88a;
+}
+
+.nav-links a {
+    margin-left: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: #3e2d23;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    background: #8b5e3c; /* medium brown */
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: #6f4528; /* darker brown */
+}
+
+.btn.ghost {
+    background: #f5f1ed; /* beige */
+    color: #8b5e3c;
+    border: 1px solid #c0a88a;
+}
+
+.btn.ghost:hover {
+    background: #e6dccf;
+}
+
+/* Cards & Sections */
+.card, .form-container {
+    background: #fff7f1; /* very light brown */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    position: center;
+    width: 40%;
+    height: 40%;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+/* Forms */
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 15px 0;
+    border-radius: 6px;
+    border: 1px solid #c0a88a;
+    font-size: 14px;
+    background: #fffefc;
+}
+
+textarea {
+    min-height: 80px;
+}
+
+/* Headings */
+h1, h2, h3 {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+    color: #4b3a2f;
+    border-top: 1px solid #c0a88a;
+}
+
+/* Lists */
+ul {
+    padding-left: 20px;
+}
+
+/* Small text */
+.small-muted, .muted {
+    color: #7c5a44;
+    font-size: 13px;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 20px;
+    background: #f7efe7;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* Contact box */
+.contact-box {
+    background: #f0e3d8;
+    padding: 15px;
+    border-radius: 8px;
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up - Hostel HUB</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+    <style>
+        .user-type-options {
+            display: flex;
+            gap: 20px;
+            margin: 10px 0;
+        }
+        
+        .user-type-options .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .tenant-specific-fields {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #8b5e3c;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="date"],
+        .form-group input[type="tel"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #c0a88a;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .errorlist {
+            color: #dc3545;
+            margin: 5px 0 0;
+            padding: 0;
+            list-style: none;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h2>Hostel HUB Sign-Up</h2>
+        <div class="nav-links">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>Create an Account</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label>I am a:</label>
+                <div class="user-type-options">
+                    <div class="radio-option">
+                        <input type="radio" id="user_type_tenant" name="user_type" value="tenant" checked>
+                        <label for="user_type_tenant">Tenant</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="user_type_admin" name="user_type" value="admin">
+                        <label for="user_type_admin">Admin</label>
+                    </div>
+                </div>
+                {{ form.user_type.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Username</label>
+                <input type="text" 
+                       name="username" 
+                       id="id_username" 
+                       maxlength="150" 
+                       required
+                       value="{{ form.username.value|default:'' }}"
+                       placeholder="Choose a username">
+                {{ form.username.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                <input type="email" 
+                       name="email" 
+                       id="id_email" 
+                       required
+                       value="{{ form.email.value|default:'' }}"
+                       placeholder="Your email address">
+                {{ form.email.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                <input type="tel" 
+                       name="phone" 
+                       id="id_phone" 
+                       required
+                       value="{{ form.phone.value|default:'' }}"
+                       placeholder="Your phone number">
+                {{ form.phone.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+                <input type="password" 
+                       name="password1" 
+                       id="id_password1" 
+                       required
+                       placeholder="Create a password">
+                {{ form.password1.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                <input type="password" 
+                       name="password2" 
+                       id="id_password2" 
+                       required
+                       placeholder="Confirm your password">
+                {{ form.password2.errors }}
+            </div>
+
+            <div id="tenant-fields" class="tenant-specific-fields">
+                <div class="form-group">
+                    <label for="id_room">Select Room</label>
+                    <select name="room" id="id_room">
+                        <option value="">Select a room (for tenants only)</option>
+                        {% for room in form.room.field.queryset %}
+                            <option value="{{ room.id }}" 
+                                    {% if form.room.value == room.id|stringformat:"s" %}selected{% endif %}>
+                                Room {{ room.room_number }} ({{ room.room_type }}) - Ksh {{ room.price }}/month
+                            </option>
+                        {% endfor %}
+                    </select>
+                    {{ form.room.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_move_in_date">Move-in Date</label>
+                    <input type="date" 
+                           name="move_in_date" 
+                           id="id_move_in_date"
+                           value="{{ form.move_in_date.value|default:'' }}">
+                    {{ form.move_in_date.errors }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Create Account</button>
+        </form>
+
+        <p style="margin-top: 20px; text-align: center;">
+            Already have an account? <a href="{% url 'login' %}">Log in here</a>
+        </p>
+    </div>
+
+    <!-- Add this JavaScript at the bottom of sign_up.html -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const userTypeTenant = document.getElementById('user_type_tenant');
+        const tenantFields = document.getElementById('tenant-fields');
+    
+        // Show/hide tenant fields based on user type
+        function toggleTenantFields() {
+            if (userTypeTenant.checked) {
+                tenantFields.style.display = 'block';
+                // Make tenant fields required
+                document.querySelectorAll('#tenant-fields input, #tenant-fields select').forEach(field => {
+                    field.required = true;
+                });
+            } else {
+                tenantFields.style.display = 'none';
+                // Make tenant fields not required
+                document.querySelectorAll('#tenant-fields input, #tenant-fields select').forEach(field => {
+                    field.required = false;
+                });
+            }
+        }
+
+        // Initial setup
+        toggleTenantFields();
+    
+        // Add event listeners
+        document.querySelectorAll('input[name="user_type"]').forEach(radio => {
+            radio.addEventListener('change', toggleTenantFields);
+        });
+    });
+    </script>
+</body>
+</html>

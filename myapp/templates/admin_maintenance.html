@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Maintenance</title>
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+<body>
+
+<nav>
+    <h2>Maintenance Issues</h2>
+    <div class="nav-links">
+        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        <a href="{% url 'admin_rooms' %}">Rooms</a>
+        <a href="{% url 'admin_tenants' %}">Tenants</a>
+        <a href="{% url 'admin_maintenance' %}" class="active">Maintenance</a>
+        <a href="{% url 'admin_announcements' %}">Announcements</a>
+        <a href="{% url 'index' %}">Logout</a>
+    </div>
+</nav>
+
+<section class="dashboard">
+    <div class="status-filters">
+        <a href="?status=all" class="{% if status_filter == 'all' or not status_filter %}active{% endif %}">
+            All ({{ all_count }})
+        </a>
+        <a href="?status=pending" class="{% if status_filter == 'pending' %}active{% endif %}">
+            Pending ({{ pending_count }})
+        </a>
+        <a href="?status=in_progress" class="{% if status_filter == 'in_progress' %}active{% endif %}">
+            In Progress ({{ in_progress_count }})
+        </a>
+        <a href="?status=completed" class="{% if status_filter == 'completed' %}active{% endif %}">
+            Completed ({{ completed_count }})
+        </a>
+    </div>
+
+    <h3>Reported Issues</h3>
+
+    {% for issue in issues %}
+    <div class="card">
+        <div class="card-header">
+            <span class="status-{{ issue.status }}">
+                {{ issue.get_status_display|default:issue.status|title }}
+            </span>
+            <span class="date">{{ issue.date_created|date:"M d, Y" }}</span>
+        </div>
+        <div class="card-body">
+            <h4>{{ issue.get_category_display|default:"Maintenance" }}</h4>
+            <p>{{ issue.description }}</p>
+            <div class="card-meta">
+                <span><strong>Tenant:</strong> {{ issue.tenant.user.get_full_name|default:issue.tenant.user.username }}</span>
+                {% if issue.tenant.room %}
+                <span><strong>Room:</strong> {{ issue.tenant.room.room_number }}</span>
+                {% endif %}
+                <a href="{% url 'maintenance' %}" class="btn btn-view">
+                    View Details
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <p>No maintenance issues found.</p>
+    </div>
+    {% endfor %}
+</section>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Rooms</title>
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+<body>
+
+<nav>
+    <h2>Manage Rooms</h2>
+    <div>
+        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        <a href="{% url 'admin_tenants' %}">Tenants</a>
+        <a href="{% url 'admin_maintenance' %}">Maintenance</a>
+        <a href="{% url 'admin_announcements' %}">Announcements</a>
+    </div>
+</nav>
+
+<section class="dashboard">
+
+    <h3>Room List</h3>
+
+    {% for room in rooms %}
+    <div class="card">
+        <p><strong>Room:</strong> {{ room.number }}</p>
+        <p><strong>Type:</strong> {{ room.type }}</p>
+        <p><strong>Status:</strong> {{ room.status }}</p>
+        <p><strong>Rent:</strong> KES {{ room.rent }}</p>
+    </div>
+    {% empty %}
+    <p>No rooms added yet.</p>
+    {% endfor %}
+
+</section>
+
+</body>
+</html>
