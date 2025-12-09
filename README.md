@@ -141,34 +141,6 @@ No JavaScript frameworks.
 No unnecessary complexity.
 Beginner-friendly by design.
 
-### 📁 Project Structure (Simplified)
-myproject/
-│
-├── myapp/
-│   ├── templates/
-│   │   ├── index.html
-│   │   ├── login.html
-│   │   ├── sign_up.html
-│   │   ├── tenant_dashboard.html
-│   │   ├── payments.html
-│   │   ├── maintenance.html
-│   │   ├── admin_dashboard.html
-│   │   └── ...
-│   │
-│   ├── static/
-│   │   ├── styles.css
-│   │   └── hostel.jpg
-│   │
-│   ├── views.py
-│   ├── models.py
-│   └── urls.py
-│
-├── myproject/
-│   ├── settings.py
-│   ├── urls.py
-│   └── ...
-│
-└── manage.py
 
 ### ▶️ How to Run the Project
 ## Requirements
